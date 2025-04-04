@@ -18,7 +18,7 @@ def get_stock_data(ticker, years, filename="stock_data.json"):
                 if ticker in saved_data:
                     ticker_data = saved_data[ticker]
                     # Asegurarse de que la fecha guardada coincida con la fecha de hoy
-                    if ticker_data.get("date") == today_date:
+                    if (ticker_data.get("date") == today_date) & (ticker_data.get("years") > years):
                         print("Usando datos guardados de hoy.")
                         data_filtered = filter_data_by_years(ticker_data["data"], years)
                         return data_filtered
@@ -51,6 +51,7 @@ def get_stock_data(ticker, years, filename="stock_data.json"):
     ticker_data = {
         "ticker": ticker,
         "date": today_date,
+        "years": years,
         "data": stock_data
     }
 
