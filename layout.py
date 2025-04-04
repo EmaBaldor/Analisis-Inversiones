@@ -34,32 +34,38 @@ layout = html.Div([
             className="checklist"
         ),
 
-            # Información sobre los indicadores
-            html.Div([
-                html.H4("Información Indicadores", className="info-title"),
-                dcc.Markdown("""
-                **SMA (Simple Moving Average):**  
-                - SMA_50: Promedio móvil de 50 días  
-                - SMA_200: Promedio móvil de 200 días  
-                 Tendencia alcista cuando el SMA 50 está por encima del SMA 200.
+        # Información sobre los indicadores
+        html.Div([
+            html.H4("Información Indicadores", className="info-title"),
+            dcc.Markdown("""
+            **SMA (Simple Moving Average):**  
+            - SMA_50: Promedio móvil de 50 días  
+            - SMA_200: Promedio móvil de 200 días  
+            Tendencia alcista cuando el SMA 50 está por encima del SMA 200.
 
-                **Bollinger Bands:**  
-                 Volatilidad del precio  
-                 - Banda superior SOBRECOMPRA  
-                 - Banda inferior SOBREVENTA  
-                 - SMA 20: línea central de soporte o resistencia  
-                 - Bandas estrechas: baja volatilidad y posible ruptura futura.  
+            **Bollinger Bands:**  
+            Volatilidad del precio  
+            - Banda superior SOBRECOMPRA  
+            - Banda inferior SOBREVENTA  
+            - SMA 20: línea central de soporte o resistencia  
+            - Bandas estrechas: baja volatilidad y posible ruptura futura.  
 
-                **RSI (Relative Strength Index):**  
-                 Fuerza de una tendencia  
-                - Venta RSI > 70 (Sobrecompra)  
-                - Compra RSI < 30 (Sobreventa)  
+            **RSI (Relative Strength Index):**  
+            Fuerza de una tendencia  
+            - Venta RSI > 70 (Sobrecompra)  
+            - Compra RSI < 30 (Sobreventa)  
 
-                **MACD (Moving Average Convergence Divergence):**  
-                - Señal de compra cuando cruza hacia arriba  
-                - Señal de venta cuando cruza hacia abajo  
-                """, className="indicator-info")
-            ], className="info-box")
+            **MACD (Moving Average Convergence Divergence):**  
+            - Señal de compra cuando cruza hacia arriba  
+            - Señal de venta cuando cruza hacia abajo  
+
+            **Volumen:**  
+            - Señal de compra: volumen alto con vela alcista  
+            - Señal de venta: volumen alto con vela bajista  
+            - Línea naranja: volumen promedio de 20 días
+            """, className="indicator-info")
+        ], className="info-box")
+
         ]
     ),
 

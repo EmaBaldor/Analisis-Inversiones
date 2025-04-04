@@ -68,4 +68,14 @@ def calcular_indicadores(ticker, data):
     data["Compra_Bollinger"] = data["Close"] < data["Banda_Inferior"]
     data["Venta_Bollinger"] = data["Close"] > data["Banda_Superior"]
 
+    # Media móvil del volumen
+    data["Vol_SMA"] = data["Volume"].rolling(window=20).mean()
+
+    # Señales: compra si el volumen actual es mucho mayor que el promedio y el precio sube
+    data["Compra_Volumen"] = (data["Volume"] > 1.5 * data["Vol_SMA"]) & (data["Close"] > data["Open"])
+
+    # Señal de venta: mucho volumen con vela bajista
+    data["Venta_Volumen"] = (data["Volume"] > 1.5 * data["Vol_SMA"]) & (data["Close"] < data["Open"])
+
+
     return data

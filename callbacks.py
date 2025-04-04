@@ -163,19 +163,57 @@ def update_graph(ticker, anios, selected_indicators):
         visible="legendonly" if "Bollinger" not in selected_indicators else True
     ))
 
-    # Configurar layout con subgráficos
+    # Subgráfico 4: Volumen
+    fig.add_trace(go.Bar(
+        x=data.index,
+        y=data["Volume"],
+        name="Volumen",
+        marker=dict(color='rgba(128, 128, 255, 0.6)'),
+        yaxis="y4"
+    ))
+
+    # Media móvil del volumen
+    fig.add_trace(go.Scatter(
+        x=data.index,
+        y=data["Vol_SMA"],
+        mode="lines",
+        name="Volumen Promedio",
+        line=dict(color='orange', dash='dot'),
+        yaxis="y4"
+    ))
+
+    # Señales de compra por volumen
+    fig.add_trace(go.Scatter(
+        x=data.index[data["Compra_Volumen"]],
+        y=data["Volume"][data["Compra_Volumen"]],
+        mode="markers",
+        name="Compra Volumen",
+        marker=dict(color="lime", size=8, symbol="triangle-up"),
+        yaxis="y4"
+    ))
+
+    # Señales de venta por volumen
+    fig.add_trace(go.Scatter(
+        x=data.index[data["Venta_Volumen"]],
+        y=data["Volume"][data["Venta_Volumen"]],
+        mode="markers",
+        name="Venta Volumen",
+        marker=dict(color="crimson", size=8, symbol="triangle-down"),
+        yaxis="y4"
+    ))
+
     fig.update_layout(
         title=f'Análisis de {ticker} ({anios} años)',
         xaxis=dict(title='Fecha'),
-        # Precio ocupa la parte superior
         yaxis=dict(title='Precio', domain=[0.7, 1]),
-        # RSI en el medio
-        yaxis2=dict(title='RSI', domain=[0.3, 0.6], anchor="x"),
-        # MACD en la parte inferior
-        yaxis3=dict(title='MACD', domain=[0, 0.2], anchor="x"),
+        yaxis2=dict(title='RSI', domain=[0.45, 0.65], anchor="x"),
+        yaxis3=dict(title='MACD', domain=[0.25, 0.4], anchor="x"),
+        yaxis4=dict(title='Volumen', domain=[0, 0.2], anchor="x"),
         template='plotly_dark',
         showlegend=True,
         xaxis_rangeslider_visible=False,
-        height=680
+        height=690  # Podés ajustar esto a gusto
     )
+
+
     return fig
